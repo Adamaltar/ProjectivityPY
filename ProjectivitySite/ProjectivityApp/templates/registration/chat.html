@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="contact.css">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'iconuser.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'send.png' %}">
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        .add-button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 15px;
+            color: black;
+            margin-left: 150px;
+        }
+
+        .add-button-box:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #home-button {
+            background-color: #C8FFB4;
+            color: black;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+        }
+
+        #chat-button {
+            background-color: #006400;
+            color: white; 
+        }
+
+        #humanitas-button {
+            float: right;
+            background-color: #C8FFB4;
+            color: white; 
+        }
+
+        #humanitas-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #contact-title {
+            font-size: 25px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 80%;
+            background-color: lightgreen;
+            padding: 20px;
+            border: 2px solid #006400;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col {
+            flex: 1;
+            margin: 10px;
+            padding: 20px;
+            background-color: #ccffcc;
+            border: 2px solid #006400;
+        }
+
+        .title {
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+        }
+
+        .chat-list {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .chat-title {
+            font-weight: bold;
+            font-size: 20px;
+            color: #006400;
+        }
+
+        .chat-item {
+            position: relative;
+        }
+
+        .modify-button {
+            margin-left: 40px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            margin-bottom: 40px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+        }
+
+        .modify-button img {
+            width: 32px;
+            height: 30px;
+        }
+
+        .add-chat-button {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+            margin-left: 120px;
+        }
+
+        #add-chat-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        .add-member-button {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 5px;
+            margin-left: 50px;
+            font-size: 18px;
+            color: back;
+        }
+
+        #add-member-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            margin-left: 40px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .delete-button img {
+            width: 28px;
+            height: 30px;
+        }
+
+        .chat-window {
+            width: 800px;
+            height: 200px;
+            overflow-y: scroll;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .message-box {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .message-textarea {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .send-button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .send-button img {
+            width: 30px;
+            height: 32px;
+        }
+
+        .message {
+            font-size: 18px;
+            font-family: Calibri;
+            color: darkgreen;
+            background-color: lightgreen;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .selected {
+            background-color: #ccffcc;
+        }
+
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: #006400;">Sedinte</a>
+    </div>
+    <div id="chat-button" class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: white;">Chat</a>
+    </div>
+    <div class="button-box">
+        <a href="rapoarte.html" style="text-decoration: none; color: #006400;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="iconuser.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: #006400;">Profil</a>
+    </div>    
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: #006400;">HUMANITAS S.A.</a>
+    </div>
+    <div id="welcome-section">
+        <h1 id="app-title">PROJECTIVITY</h1>
+        <h2 id="contact-title">CHAT - FORUM</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title">Chat</div>
+                <div class="chat-list">
+                    <div class="chat-item">
+                        <span class="chat-title">Chat 1</span>
+                        <button class="modify-button"><img src="modify.png" alt="Modify"></button>
+                        <button class="delete-button"><img src="trash.png" alt="Delete"></button>
+                    </div>
+                    <div class="chat-item">
+                        <span class="chat-title">Chat 2</span>
+                        <button class="modify-button"><img src="modify.png" alt="Modify"></button>
+                        <button class="delete-button"><img src="trash.png" alt="Delete"></button>
+                    </div>
+                </div>
+                <button id="add-chat-button" class="button-box">
+                <a style="text-decoration: none; color: black;">Adauga chat nou</a>
+                </div>
+                <div class="col">
+                    <span class="title">Chat Window</span> 
+                    <button class="add-button-box"> <a id="add-membru-button" style="color: black;">Adaugă membri noi</a></button>
+                    <div class="chat-window">
+                    <div class="message">Mesaj 1</div>
+                    <div class="message">Mesaj 2</div>
+                    <div class="message">Mesaj 3</div>
+                </div>
+                <div class="message-box">
+                    <textarea class="message-textarea" placeholder="Scrie un mesaj"></textarea>
+                    <button class="send-button"><img src="send.png" alt="Send"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var addChatButton = document.getElementById('add-chat-button');
+        addChatButton.addEventListener('click', function() {
+            var chatTitle = prompt('Introduceti titlul chat-ului:');
+            if (chatTitle) {
+                // Create a new chat item
+                var chatItem = document.createElement('div');
+                chatItem.classList.add('chat-item');
+                
+                // Create the chat title
+                var chatTitleElement = document.createElement('span');
+                chatTitleElement.classList.add('chat-title');
+                chatTitleElement.innerText = chatTitle;
+                chatItem.appendChild(chatTitleElement);
+                
+                // Create the modify button
+                var modifyButton = document.createElement('button');
+                modifyButton.classList.add('modify-button');
+                var modifyIcon = document.createElement('img');
+                modifyIcon.src = 'modify.png';
+                modifyIcon.alt = 'Modify';
+                modifyButton.appendChild(modifyIcon);
+                chatItem.appendChild(modifyButton);
+                
+                // Create the delete button
+                var deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                var deleteIcon = document.createElement('img');
+                deleteIcon.src = 'trash.png';
+                deleteIcon.alt = 'Delete';
+                deleteButton.appendChild(deleteIcon);
+                chatItem.appendChild(deleteButton);
+                
+                // Add the new chat item to the chat list
+                var chatList = document.querySelector('.chat-list');
+                chatList.appendChild(chatItem);
+            }
+        });
+        
+        // Add event listeners for modify buttons
+        var modifyButtons = document.querySelectorAll('.modify-button');
+        modifyButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var chatTitleElement = button.parentNode.querySelector('.chat-title');
+                if (chatTitleElement.contentEditable === 'true') {
+                    chatTitleElement.contentEditable = 'false';
+                    chatTitleElement.style.backgroundColor = 'initial';
+                } else {
+                    chatTitleElement.contentEditable = 'true';
+                    chatTitleElement.style.backgroundColor = '#ccffcc';
+                }
+            });
+        });
+        
+        // Add event listeners for delete buttons
+        var deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var confirmDelete = confirm('Sunteti sigur ca doriti sa stergeti conversatia?');
+                if (confirmDelete) {
+                    var chatItem = button.parentNode;
+                    var chatList = chatItem.parentNode;
+                    chatList.removeChild(chatItem);
+                    // TODO: Remove chat from database
+                }
+            });
+        });
+        
+        // Add event listener for chat titles
+        var chatTitles = document.querySelectorAll('.chat-title');
+        chatTitles.forEach(function(title) {
+            title.addEventListener('click', function() {
+                // Clear the message box
+                var messageBox = document.querySelector('.message-box');
+                messageBox.innerHTML = '';
+                
+                // Highlight the selected chat title
+                chatTitles.forEach(function(chatTitle) {
+                    chatTitle.classList.remove('selected');
+                });
+                title.classList.add('selected');
+                
+                // TODO: Load and display messages for the selected chat from the database
+            });
+        });
+        
+        // Add event listener for "Adauga membru" button
+        var addMemberButton = document.querySelector('.add-member-button');
+        addMemberButton.addEventListener('click', function() {
+            var inputMemberCode = prompt('Introduceti codul utilizatorului:');
+            if (inputMemberCode) {
+                // TODO: Add member to the chat in the database
+            }
+        });
+        
+        // Add event listener for send button
+        var sendButton = document.querySelector('.send-button');
+        sendButton.addEventListener('click', function() {
+            var messageText = document.querySelector('.message-input').value;
+            if (messageText) {
+                // Create a new message item
+                var messageItem = document.createElement('div');
+                messageItem.classList.add('message-item');
+                
+                // Determine the message alignment (left for other users, right for the current user)
+                var currentUser = 'current-user'; // Replace with the current user ID
+                if (messageItem.classList.contains(currentUser)) {
+                    messageItem.classList.add('message-right');
+                } else {
+                    messageItem.classList.add('message-left');
+                }
+                
+                // Create the message content
+                var messageContent = document.createElement('span');
+                messageContent.classList.add('message-content');
+                messageContent.innerText = messageText;
+                messageItem.appendChild(messageContent);
+                
+                // Add the new message item to the message box
+                var messageBox = document.querySelector('.message-box');
+                messageBox.appendChild(messageItem);
+                
+                // Clear the message input
+                document.querySelector('.message-input').value = '';
+                
+                // TODO: Save the message to the database
+            }
+        });
+    </script>
+    
+
+<script>
+    document.getElementById("home-button").classList.add("inactive");
+
+    document.getElementById("home-button").addEventListener("click", function() {
+        window.location.href = "home.html";
+    });
+
+    document.getElementById("profil-button").addEventListener("click", function() {
+        window.location.href = "detalii_utilizator.html";
+    });
+
+    document.getElementById("humanitas-button").addEventListener("click", function() {
+        window.location.href = "contact.html";
+    });
+
+    document.getElementById("info-utile-button").addEventListener("click", function() {
+        window.location.href = "info_utile.html";
+    });
+
+    document.getElementById("proiect-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("task-button").addEventListener("click", function() {
+        window.location.href = "task.html";
+    });
+
+    document.getElementById("sedinte-button").addEventListener("click", function() {
+        window.location.href = "sedinte.html";
+    });
+
+    document.getElementById("chat-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("rapoarte-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("profil-button").addEventListener("click", function() {
+        window.location.href = "detalii_utilizator.html";
+    });
+</script>
+</body>
+</html>
