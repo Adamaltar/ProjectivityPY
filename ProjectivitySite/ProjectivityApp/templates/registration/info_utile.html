@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Informatii utile</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="info_utile.css">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'iconuser.png' %}">
+
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        #home-button {
+            background-color: #C8FFB4;
+            color: black;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+        }
+
+        #humanitas-button {
+            float: right;
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #006400;
+            margin: 10px 10;
+            text-align: center;
+        }
+
+        #contact-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .contact-section {
+            width: 30%;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #006400;
+            border-radius: 5px;
+        }
+
+        .contact-section p {
+            font-size: 10px;
+            color: black;
+        }
+
+        .info-box {
+            width: 30%;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #006400;
+            border-radius: 5px;
+            background-color: #C8FFB4;
+            color: black;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .speech-bubble {
+            position: relative;
+            background-color: #00FF7F;
+            color: #006400;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            padding: 10px;
+            border: 2px solid #006400;
+            border-radius: 5px;
+            width: 70%;
+            margin-bottom: 20px;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            margin-top: -15px;
+            border-width: 15px;
+            border-style: solid;
+            border-color: transparent transparent transparent #006400;
+        }
+
+        {% comment %} 
+        #return-home {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background-color: #ADFF2F;
+            color: #006400;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            padding: 10px;
+            border: 2px solid #006400;
+            border-radius: 5px;
+            width: auto;
+            z-index: 9999;
+        }
+
+        #return-home:after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            right: 50%;
+            margin-bottom: -15px;
+            border-width: 15px;
+            border-style: solid;
+            border-color: transparent transparent #006400 transparent;
+        } {% endcomment %}
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: #006400;">Sedinte</a>
+    </div>
+    <div class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: #006400;">Chat</a>
+    </div>
+    <div class="button-box">
+        <a href="rapoarte.html" style="text-decoration: none; color: #006400;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="iconuser.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: #006400;">Profil</a>
+    </div> 
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: #006400;">HUMANITAS S.A.</a>
+    </div>
+
+    <h1 id="app-title">PROJECTIVITY</h1>
+    <h2 id="contact-title">Informatii utile</h2>
+
+    <div class="info-box">
+        Proiecte
+        <div class="speech-bubble">Pagina de Proiecte. Aici veti putea crea, cauta sau modifica proiectele existente fiecarui departament</div>
+    </div>
+    <div class="info-box">
+        Taskuri
+        <div class="speech-bubble">Pagina de Taskuri. Aici veti putea crea, cauta sau modifica taskurile existente fiecarui departament</div>
+    </div>
+    <div class="info-box">
+        Sedinte
+        <div class="speech-bubble">Pagina de Sedinte. Aici veti putea crea, cauta sau modifica sedintele stabilite fiecarui departament</div>
+    </div>
+    <div class="info-box">
+        Chat
+        <div class="speech-bubble">Pagina de Chat. Aici veti putea participa la chaturi, fie in care ati fost invatat sau pe care le initiati. Puteti de asemenea sa luati parte sau sa creati forumuri.</div>
+    </div>
+    <div class="info-box">
+        Profil
+        <div class="speech-bubble">Pagina dumneavoastra de user, unde aveti toate informatiile specifice profilului.</div>
+    </div>
+    <div class="info-box">
+        Rapoarte
+        <div class="speech-bubble">Pagina de rapoarte. Aici veti putea vedea rapoarte filtrate pe diverse criterii si accesa rapoartele totale ale taskurilor si proiectelor.</div>
+    </div>
+    <div class="info-box">
+        HUMANITAS S.A.
+        <div class="speech-bubble">Pagina de informatii si contact a editurii HUMANITAS S.A. Daca intampinati dificultati sau doriti mai multe detalii, puteti contacta persoanele dorite.</div>
+    </div>
+
+    <script>
+        document.getElementById("home-button").classList.add("inactive");
+
+        document.getElementById("home-button").addEventListener("click", function() {
+            window.location.href = "home.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    
+        document.getElementById("humanitas-button").addEventListener("click", function() {
+            window.location.href = "contact.html";
+        });
+    
+        document.getElementById("info-utile-button").addEventListener("click", function() {
+            window.location.href = "info_utile.html";
+        });
+    
+        document.getElementById("proiect-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("task-button").addEventListener("click", function() {
+            window.location.href = "task.html";
+        });
+    
+        document.getElementById("sedinte-button").addEventListener("click", function() {
+            window.location.href = "sedinte.html";
+        });
+    
+        document.getElementById("chat-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("rapoarte-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    </script>
+</body>
+</html>

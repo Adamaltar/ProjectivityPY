@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Sunteți sigur că doriți să vă delogați?</h2>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">DA</button>
+        <a href="#" class="btn btn-secondary" onclick="cancelLogout()">NU</a>
+    </form>
+
+    <script>
+        function cancelLogout() {
+            window.location.href = "{% url 'home' %}";
+        }
+    </script>
+{% endblock %}

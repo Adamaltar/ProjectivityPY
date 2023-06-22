@@ -1,0 +1,112 @@
+body {
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.button-box {
+    border: 2px solid #006400;
+    background-color: #C8FFB4;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+#home-button {
+    background-color: #C8FFB4;
+    color: black;
+}
+
+#home-button:hover {
+    background-color: #32CD32;
+    cursor: pointer;
+}
+
+#profil-button {
+    float: left;
+}
+
+#humanitas-button {
+    float: right;
+}
+
+.button-box:hover {
+    background-color: #32CD32;
+}
+
+#app-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #006400;
+    margin: 10px 10;
+    text-align: center;
+}
+
+#contact-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.contact-section {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid #006400;
+    border-radius: 5px;
+}
+
+.contact-section p {
+    font-size: 10px;
+    color: black;
+}
+
+.info-box {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid #006400;
+    border-radius: 5px;
+    background-color: #C8FFB4;
+    color: black;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.speech-bubble {
+    position: relative;
+    background-color: #00FF7F;
+    color: #006400;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #006400;
+    border-radius: 5px;
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -15px;
+    border-width: 15px;
+    border-style: solid;
+    border-color: transparent transparent transparent #006400;
+}
+

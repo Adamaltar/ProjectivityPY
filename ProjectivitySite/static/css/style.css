@@ -1,0 +1,71 @@
+body {
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+  
+  .button-box {
+    text-align: left;
+    width: 200px;
+  }
+  
+  .green-border {
+    border: 2px solid #006400;
+    background-color: #ADFF2F;
+    margin-bottom: 20px;
+  }
+  
+  #home-button {
+    margin-top: 30px;
+  }
+  
+  #profil-button {
+    float: left;
+  }
+  
+  #humanitas-button {
+    float: right;
+  }
+  
+  #welcome-text {
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 24px;
+    color: #006400;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  #app-title {
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 28px;
+    color: #ADFF2F;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  #logo {
+    width: 200px;
+    margin-bottom: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+  }
+  
+  #info-utile {
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #006400;
+    background-color: #ADFF2F;
+    border-radius: 5px;
+  }

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'iconuser.png' %}">
+    <link rel="icon" type="image/png" href="ProjectivityApp/static/background.png">
+    <link rel="icon" type="image/png" href="ProjectivityApp/static/iconuser.png">
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            margin-top: 20px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        #home-button {
+            background-color: #006400;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+        }
+
+        #humanitas-button {
+            float: right;
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title1 {
+            font-size: 35px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        #app-title {
+            font-size: 45px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }        
+
+        #logo {
+            text-align: center;
+            margin: 0 auto 0px;
+            width: fit-content;
+            float: left;
+            margin-left: 690px;
+        }
+
+        #info-utile-button {
+            display: block;
+            text-align: center;
+            margin: 0 auto; 
+            width: fit-content;
+            clear: both; 
+            margin-top: 20px; 
+        }            
+          
+        #info-utile-button a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 30px;
+            margin: 20px 0;
+        }
+          
+          
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: #006400;">Sedinte</a>
+    </div>
+    <div class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: #006400;">Chat</a>
+    </div>
+    <div class="button-box">
+        <a href="rapoarte.html" style="text-decoration: none; color: #006400;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="iconuser.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: #006400;">Profil</a>
+    </div> 
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: #006400;">HUMANITAS S.A.</a>
+    </div>
+
+    <h1> </h1>
+    <h1 id="app-title1">Bun venit!</h1>
+    <h1 id="app-title">PROJECTIVITY</h1>
+
+    <div id="logo">
+        <img src="logo.png" alt="Logo" />
+    </div>
+
+    <div id="info-utile-button" class="button-box">
+        <a href="info_utile.html" style="text-decoration: none; text-align: center; color: #006400;">Informatii utile</a>
+    </div>
+
+    <script>
+        document.getElementById("home-button").classList.add("inactive");
+
+        document.getElementById("home-button").addEventListener("click", function() {
+            window.location.href = "home.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    
+        document.getElementById("humanitas-button").addEventListener("click", function() {
+            window.location.href = "contact.html";
+        });
+    
+        document.getElementById("info-utile-button").addEventListener("click", function() {
+            window.location.href = "info_utile.html";
+        });
+    
+        document.getElementById("proiect-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("task-button").addEventListener("click", function() {
+            window.location.href = "task.html";
+        });
+    
+        document.getElementById("sedinte-button").addEventListener("click", function() {
+            window.location.href = "sedinte.html";
+        });
+    
+        document.getElementById("chat-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("rapoarte-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    </script>
+</body>
+</html>

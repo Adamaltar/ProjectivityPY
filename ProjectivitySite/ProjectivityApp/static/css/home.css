@@ -1,0 +1,89 @@
+body {
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+body {
+    text-align: center;
+  }
+  
+  .button-box {
+    border: 2px solid #006400;
+    background-color: #C8FFB4;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px;
+    margin-top: 20px;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    color: white;
+  }
+
+#home-button {
+    background-color: #006400;
+}
+
+#home-button:hover {
+    background-color: #32CD32;
+    cursor: pointer;
+}
+
+#profil-button {
+    float: left;
+}
+
+#humanitas-button {
+    float: right;
+}
+
+.button-box:hover {
+    background-color: #32CD32;
+}
+
+#app-title1 {
+    font-size: 35px;
+    color: black;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+#app-title {
+    font-size: 45px;
+    font-weight: bold;
+    color: #006400;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}        
+
+#logo {
+    text-align: center;
+    margin: 0 auto 0px;
+    width: fit-content;
+    float: left;
+    margin-left: 690px;
+}
+
+#info-utile-button {
+    display: block;
+    text-align: center;
+    margin: 0 auto; 
+    width: fit-content;
+    clear: both; 
+    margin-top: 20px; 
+}            
+  
+#info-utile-button a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+  

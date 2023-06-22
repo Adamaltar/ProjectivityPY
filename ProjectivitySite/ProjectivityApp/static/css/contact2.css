@@ -1,0 +1,61 @@
+.button-box {
+    border: 2px solid #006400;
+    background-color: #C8FFB4;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+
+#humanitas-button {
+    float: right;
+    background-color: #006400;
+    color: white; 
+}
+
+.button-box:hover {
+    background-color: #32CD32;
+}
+
+#app-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #006400;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 190px;
+    text-align: center;
+}
+
+#contact-title {
+    font-size: 24px;
+    color: black;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.contact-section {
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #006400;
+    border-radius: 5px;
+    background-color: #00FF7F;
+    margin-left: 110px;
+    margin-right: 10px;
+}
+
+.contact-section p {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}

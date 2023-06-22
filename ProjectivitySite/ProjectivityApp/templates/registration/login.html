@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <title>PROJECTIVITY</title>
+  <link rel="stylesheet" type="text/css" href="home.css">
+  <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+  <style>
+      body {
+        background-image: url("background.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+      }
+
+      .button-box {
+        border: 2px solid #006400;
+        background-color: #C8FFB4;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin: 10px;
+        font-family: 'Berlin Sans FB Demi', sans-serif;
+        font-size: 18px;
+        color: white;
+      }
+
+      #humanitas-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #C8FFB4;
+        color: black;
+      }
+
+      .button-box:hover {
+        background-color: #32CD32;
+      }
+
+      #app-title {
+        font-size: 45px;
+        font-weight: bold;
+        color: #006400;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        margin-left: 40px;
+        text-align: center;
+      }
+
+      #logo {
+        display: block;
+        max-width: 500px;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        width: fit-content;
+        margin-bottom: 150px;
+      }
+
+      .login-container {
+        text-align: center;
+      }
+
+      .login-box {
+        margin-top: 20px;
+        background-color: #C8FFB4;
+        padding: 20px;
+        border-radius: 5px;
+        display: inline-block;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        width: 400px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 18px;
+        text-align: left;
+        color: black;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        border: none;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #006400;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #32CD32;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("humanitas-button").addEventListener("click", function() {
+          window.location.href = "contact2.html";
+        });
+      });
+
+      function myFunction() {
+        var form = document.getElementById("myForm");
+        form.action = "/login/";
+      }
+    </script>
+  </head>
+  <body>
+    <h1 id="app-title">PROJECTIVITY</h1>
+    <div id="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <div class="login-container">
+        <div class="login-box">
+          <form action="/login/" method="POST" id="myForm">
+              <label for="cod_utilizator"><strong>Utilizator:</strong></label>
+              <input type="text" id="utilizator" name="cod_utilizator" required>
+              <label for="parola"><strong>Parola:</strong></label>
+              <input type="password" id="parola" name="parola" required>
+              <button type="submit">Log in</button>
+          </form>    
+        </div>
+    </div>
+  
+      <div id="humanitas-button" class="button-box">
+        <a href="contact2.html" style="text-decoration: none; color: black;">HUMANITAS S.A.</a>
+      </div>
+
+
+  </body>
+  </html>

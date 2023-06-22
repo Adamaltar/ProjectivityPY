@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Contact</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="contact.css">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: black;
+            float: right;
+        }
+
+
+        #login-button {
+            float: right;
+            background-color: #006400;
+            color: black; 
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            margin-left: 190px;
+            text-align: center;
+        }
+
+        #contact-title {
+            font-size: 24px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .contact-section {
+            width: 25%;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #006400;
+            border-radius: 5px;
+            background-color: #00FF7F;
+            margin-left: 110px;
+            margin-right: 10px;
+        }
+
+        .contact-section p {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+        }
+    </style>
+
+    <div id="humanitas-button" class="button-box">
+        <a href="login.html" style="text-decoration: none; color: black;">Back to LogIn</a>
+    </div>
+    <div id="welcome-section">
+        <h1 id="app-title">PROJECTIVITY</h1>
+        <h2 id="contact-title">CONTACT</h2>
+    </div>
+    <div class="contact-section">
+        <p>SECRETARIAT DE DIRECȚIE</p>
+        <p>D C</p>
+        <p>Tel: (021) 408 83 50</p>
+        <p>Fax: (021) 408 83 51</p>
+        <p>secretariat@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>COPYRIGHT</p>
+        <p>G N</p>
+        <p>Tel: (021) 408 83 50</p>
+        <p>Fax: (021) 408 83 51</p>
+        <p>g.n@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>SECRETARIAT DE REDACŢIE</p>
+        <p>C M</p>
+        <p>Tel: 0372 716 036</p>
+        <p>Tel: (021) 408 83 56</p>
+        <p>Fax: (021) 408 83 51</p>
+    </div>
+    <div class="contact-section">
+        <p>PRODUCŢIE</p>
+        <p>Director de producție</p>
+        <p>V V</p>
+        <p>Tel/fax: (021) 408 83 55</p>
+        <p>v.v@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>MARKETING</p>
+        <p>Director de marketing</p>
+        <p>G M</p>
+        <p>g.m@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>PR HUMANITAS JUNIOR</p>
+        <p>PR Executive</p>
+        <p>A E</p>
+        <p>Tel: (021) 408 83 50</p>
+        <p>a.e@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>PR HUMANITAS FICTION</p>
+        <p>PR Executive</p>
+        <p>I I</p>
+        <p>Tel: (021) 408 83 59</p>
+        <p>i.i@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>PR HUMANITAS</p>
+        <p>PR Executive</p>
+        <p>A V</p>
+        <p>Tel: (021) 408 83 50</p>
+        <p>a.v@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>COORDONATOR PR & MARKETING LIBRĂRIILE HUMANITAS</p>
+        <p>R B</p>
+        <p>Tel: (021) 408 83 66</p>
+        <p>r.b@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>DEPARTAMENT VÂNZĂRI</p>
+        <p>L B</p>
+        <p>Tel: (021) 408 83 53</p>
+        <p>Fax: (021) 408 83 52</p>
+        <p>l.b@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>DIRECTOR IT</p>
+        <p>G G</p>
+        <p>Tel: (021) 408 83 50</p>
+        <p>Fax: (021) 408 83 51</p>
+        <p>sysadmin@humanitas.ro</p>
+    </div>
+    <div class="contact-section">
+        <p>GRUPUL HUMANITAS</p>
+        <p>Piața Presei Libere nr. 1</p>
+        <p>Corp C, etaj 1</p>
+        <p>013701 București, România</p>
+        <p>PROTECȚIA DATELOR PERSONALE</p>
+        <p>Protectiadatelor@humanitas.ro</p>
+    </div>
+    </div>
+
+<script>
+
+    document.getElementById("login-button").addEventListener("click", function() {
+        window.location.href = "login.html";
+    });
+
+</script>
+</body>
+</html>

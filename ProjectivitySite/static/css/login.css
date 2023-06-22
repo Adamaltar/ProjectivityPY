@@ -1,0 +1,104 @@
+/* LOGIN FORM */
+
+body {
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+
+  .button-box {
+    border: 2px solid #006400;
+    background-color: #C8FFB4;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px;
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+    font-size: 18px;
+    color: white;
+  }
+
+  #humanitas-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #C8FFB4;
+    color: black;
+  }
+
+  .button-box:hover {
+    background-color: #32CD32;
+  }
+
+  #app-title {
+    font-size: 45px;
+    font-weight: bold;
+    color: #006400;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    text-align: center;
+  }
+
+  #logo {
+    display: block;
+    max-width: 500px;
+    height: 200px;
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+    margin-bottom: 150px;
+  }
+
+  .login-container {
+    text-align: center;
+  }
+
+  .login-box {
+    margin-top: 20px;
+    background-color: #C8FFB4;
+    padding: 20px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 18px;
+    text-align: left;
+    color: black;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: none;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #32CD32;
+  }

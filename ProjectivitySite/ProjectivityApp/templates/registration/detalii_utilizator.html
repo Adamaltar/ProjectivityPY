@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Profil</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="contact.css">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'profil.png' %}">
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        #home-button {
+            background-color: #C8FFB4;
+            color: black;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+            background-color: #006400;
+            color: white; 
+        }
+
+        #humanitas-button {
+            float: right;
+            background-color: #C8FFB4;
+            color: black; 
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 35px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #contact-title {
+            font-size: 25px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        #user-details {
+            margin-top: 50px;
+            text-align: center;
+            margin-bottom: 70px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #user-details label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #006400;
+            margin-top: 50px;
+            font-weight: bold;
+        }
+
+        #user-details span {
+            font-size: 16px;
+        }
+
+        #logout-button {
+            background-color: #C8FFB4;
+            color: black;
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: #006400;">Sedinte</a>
+    </div>
+    <div class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: #006400;">Chat</a>
+    </div>
+    <div class="button-box">
+        <a href="rapoarte.html" style="text-decoration: none; color: #006400;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="profil.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: white;">Profil</a>
+    </div>    
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: black;">HUMANITAS S.A.</a>
+    </div>
+    <div id="welcome-section">
+        <h1 id="app-title">PROJECTIVITY</h1>
+        <h2 id="contact-title">Detalii Utilizator</h2>
+    </div>
+
+    <div id="user-details">
+        <label>Nume:</label>
+        <span>{{ utilizator.nume }}</span>
+
+        <label>Prenume:</label>
+        <span>{{ utilizator.prenume }}</span>
+
+        <label>Adresa Mail:</label>
+        <span>{{ utilizator.adresa_email }}</span>
+
+        <label>Numar Telefon:</label>
+        <span>{{ utilizator.nr_telefon }}</span>
+
+        <label>Departament:</label>
+        <span>{{ utilizator.cod_departament }}</span>
+
+        <label>Echipa:</label>
+        <span>{{ utilizator.cod_echipa }}</span>
+
+        <label>Locatie Birou:</label>
+        <span>{{ utilizator.locatie_birou }}</span>
+
+        <label>Atributii:</label>
+        <span>{{ utilizator.atributii }}</span>
+
+        <label>Notificari:</label>
+        <span>{{ utilizator.notificari }}</span>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            var confirmLogout = confirm("Sunteți sigur că doriți să vă delogați?");
+            if (confirmLogout) {
+                window.location.href = "login.html";
+            }
+        }
+    </script>
+    
+    <button id="logout-button" onclick="confirmLogout()">Log Out</button>      
+
+<script>
+    document.getElementById("home-button").classList.add("inactive");
+
+    document.getElementById("home-button").addEventListener("click", function() {
+        window.location.href = "home.html";
+    });
+
+    document.getElementById("profil-button").addEventListener("click", function() {
+        window.location.href = "detalii_utilizator.html";
+    });
+
+    document.getElementById("humanitas-button").addEventListener("click", function() {
+        window.location.href = "contact.html";
+    });
+
+    document.getElementById("info-utile-button").addEventListener("click", function() {
+        window.location.href = "info_utile.html";
+    });
+
+    document.getElementById("proiect-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("task-button").addEventListener("click", function() {
+        window.location.href = "task.html";
+    });
+
+    document.getElementById("sedinte-button").addEventListener("click", function() {
+        window.location.href = "sedinte.html";
+    });
+
+    document.getElementById("chat-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("rapoarte-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+</script>
+</body>
+</html>
