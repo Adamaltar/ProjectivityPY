@@ -57,6 +57,11 @@
             float: right;
         }
 
+        #humanitas-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
         #proiect_button {
             background-color: #006400;
         }
@@ -89,27 +94,52 @@
             flex-direction: column;
         }
 
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #006400;
-            background-color: #C8FFB4;
-            padding: 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 10px;
-            font-family: 'Berlin Sans FB Demi', sans-serif;
-            font-size: 25px;
-            color: black;
-            margin-top: 70px;
-            text-align: center;
+        #search-container {
+            margin-bottom: 10px;
+        }
+          
+        #search-input {
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 70px;
+            margin-top: 40px;
+            margin-left: 800px;
         }
 
-        .hidden {
-            display: none;
+        #search-button {
+            height: 40px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            font-size: 16px;
+            background-color: #C8FFB4;
+            color: black;
+            border: 2px solid black;
+            border-color: #006400;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 70px;
+            margin-top: 40px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            margin-left: 10px;
+        }
+
+        #search-button:hover {
+            background-color: #004000;
+        }
+
+        #clear-button {
+            cursor: pointer;
+            margin-left: 5px;
+            color: #006400;
+            font-weight: bold;
+            font-size: 25px;
         }          
 
+ 
         #project-table {
             border-collapse: collapse;
             width: 100%;
@@ -378,6 +408,7 @@
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cauta proiectul dorit">
             <button id="search-button">Cautare</button>
+            <span id="clear-button">x</span>                        
         </div>
         <div class="table-container">
             <form method="POST" action="{% url 'proiecte' %}">
@@ -415,6 +446,8 @@
 
           
         <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
             const projectTable = document.getElementById('project-table');
             const addProjectButton = document.querySelector('.add-project-button');
             let isEditMode = false;
@@ -422,22 +455,23 @@
             function createNewRow() {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
-                  <td><input type="text" maxlength="50"></td>
-                  <td class="center modify-button"><img src="modify.png" alt="Modify Icon"></td>
-                  <td class="center save-button"><img src="save.png" alt="Save Icon"></td>
-                  <td class="center status-button-container">
-                    <div class="status-button red"></div>
-                    <div class="status-button yellow"></div>
-                    <div class="status-button green"></div>
-                    <div class="status-label"></div>
-                  </td>
-                  <td class="center delete-button"><img src="trash.png" alt="Delete Icon"></td>
-                  <td><textarea maxlength="250" rows="1"></textarea></td>
-                  <td>
-                    <input type="date">
-                    <input type="time">
-                  </td>
-                `;
+                <td class="searchable-column"><input type="text" maxlength="50"></td>
+                <td class="center modify-button"><img src="modify.png" alt="Modify Icon"></td>
+                <td class="center save-button"><img src="save.png" alt="Save Icon"></td>
+                <td class="center status-button-container">
+                  <div class="status-button red"></div>
+                  <div class="status-button yellow"></div>
+                  <div class="status-button green"></div>
+                  <div class="status-label"></div>
+                </td>
+                <td class="center delete-button"><img src="trash.png" alt="Delete Icon"></td>
+                <td class="searchable-column"><textarea maxlength="250" rows="1"></textarea></td>
+                <td class="searchable-column">
+                  <input type="date">
+                  <input type="time">
+                </td>
+              `;
+              
                 projectTable.querySelector('tbody').appendChild(newRow);
               
                 const statusButtons = newRow.querySelectorAll('.status-button');
@@ -560,23 +594,76 @@
 
             const searchInput = document.getElementById('search-input');
             const searchButton = document.getElementById('search-button');
-            const tableRows = Array.from(projectTable.querySelectorAll('tbody tr'));
-        
+            const clearButton = document.getElementById('clear-button');
+
             searchButton.addEventListener('click', handleSearch);
-        
+            clearButton.addEventListener('click', clearSearch);
+            
             function handleSearch() {
                 const searchTerm = searchInput.value.toLowerCase().trim();
-        
-                tableRows.forEach(row => {
-                    const projectName = row.querySelector('td:first-child input[type="text"]').value.toLowerCase();
-        
-                    if (projectName.includes(searchTerm)) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
+                const rows = projectTable.querySelectorAll('tbody tr');
+              
+                if (searchTerm === '') {
+                  rows.forEach(row => {
+                    row.style.display = 'table-row';
+                  });
+                  return;
+                }
+              
+                rows.forEach(row => {
+                  const searchableColumns = row.querySelectorAll('.searchable-column');
+                  let shouldShowRow = false;
+              
+                  for (let i = 0; i < searchableColumns.length; i++) {
+                    const columnText = searchableColumns[i].textContent.toLowerCase();
+                    if (isTextMatch(columnText, searchTerm) || isDateMatch(columnText, searchTerm)) {
+                      shouldShowRow = true;
+                      break;
                     }
+                  }
+              
+                  row.style.display = shouldShowRow ? 'table-row' : 'none';
                 });
-            }
+              }
+              
+              
+              function isTextMatch(text, searchTerm) {
+                return text.includes(searchTerm);
+              }
+              
+              function isDateMatch(text, searchTerm) {
+                const datePattern = /\d{2}\/\d{2}\/\d{4}/;
+                return datePattern.test(text) && text.includes(searchTerm);
+              }
+
+                function isMonthAndDayMatch(text, searchTerm) {
+                const monthAndDayPattern = /\d{2}\/\d{2}/;
+                return monthAndDayPattern.test(text) && text.includes(searchTerm);
+              }
+              
+              function isDayMatch(text, searchTerm) {
+                const dayPattern = /\d{2}/;
+                return dayPattern.test(text) && text.includes(searchTerm);
+              }
+              function isDateMatchInputs(inputs, searchTerm) {
+                for (let i = 0; i < inputs.length; i++) {
+                  const input = inputs[i];
+                  if (input.value.includes(searchTerm)) {
+                    return true;
+                  }
+                }
+                return false;
+              }                                                    
+
+              function clearSearch() {
+                searchInput.value = ''; 
+              
+                const rows = projectTable.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                  row.style.display = 'table-row';
+                });
+              }
+        });
           </script>
 
 <script>
