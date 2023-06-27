@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% csrf_token %}
+<script>
+    function getCSRFToken() {
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+</script>
     {% load static %}
     <title>Profil</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
@@ -41,6 +47,23 @@
             cursor: pointer;
         }
 
+        #inbox-button {
+            background-color: #C8FFB4;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+            width: 60px;
+            height: 20px;
+            text-color: black;
+            text-align: center;
+            font-size: 16;
+        }
+
+        #inbox-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
         #profil-button {
             float: left;
             background-color: #006400;
@@ -51,6 +74,11 @@
             float: right;
             background-color: #C8FFB4;
             color: black; 
+        }
+
+        #humanitas-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
         }
 
         .button-box:hover {
@@ -163,9 +191,55 @@
 
         <label>Notificari:</label>
         <span>{{ utilizator.notificari }}</span>
+
+        <button id="toggle-notifications" onclick="toggleNotifications()">
+            {{ utilizator.notificari == 'Activ' ? 'OFF' : 'ON' }}
+        </button>
+    </div>
+    
+    <div id="inbox-button" class="button-box" style="color: black;">
+        <a>Inbox</a>
+        <ul id="notification-list"></ul>
+    </div>        
     </div>
 
     <script>
+        function toggleNotifications() {
+            var toggleButton = document.getElementById('toggle-notifications');
+            var notificationList = document.getElementById('notification-list');
+            var inbox = document.getElementById('inbox-button');
+    
+            if (toggleButton.textContent === 'OFF') {
+                toggleButton.textContent = 'ON';
+                inbox.style.display = 'none';
+            } else {
+                toggleButton.textContent = 'OFF';
+                inbox.style.display = 'block';
+                loadNotifications();
+            }
+        }
+
+        function loadNotifications() {
+            var notificationList = document.getElementById('notification-list');
+    
+            fetch('/get_notifications/')  
+                .then(response => response.json())
+                .then(data => {
+                    var notifications = data.notifications;
+    
+                    notificationList.innerHTML = '';
+    
+                    notifications.forEach(notification => {
+                        var li = document.createElement('li');
+                        li.textContent = notification;
+                        notificationList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.log('A apărut o eroare: ' + error);
+                });
+        }
+
         function confirmLogout() {
             var confirmLogout = confirm("Sunteți sigur că doriți să vă delogați?");
             if (confirmLogout) {
