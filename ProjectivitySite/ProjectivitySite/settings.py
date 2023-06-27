@@ -156,3 +156,10 @@ AUTH_USER_MODEL = 'ProjectivityApp.Utilizator'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import environ 
+
+# Initialise environment 
+
+env = environ.Env()
+environ.Env.read_env()
+
