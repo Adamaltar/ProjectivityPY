@@ -18,6 +18,8 @@ class UtilizatorManager(BaseUserManager):
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
+        other_fields.setdefault('cod_departament', Departament.objects.get(cod_departament=1))
+        other_fields.setdefault('cod_echipa', Echipe.objects.get(cod_echipa=1))
         
         if other_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser trebuie sa fie atribuit is_staff=True.'))
@@ -37,21 +39,21 @@ class UtilizatorManager(BaseUserManager):
 
 
 class Departament(models.Model):
-    cod_departament = models.AutoField(primary_key=True)
+    cod_departament = models.AutoField(primary_key=True, db_column='cod_departament')
     nume_departament = models.CharField(max_length=50)
 
 
 class Echipe(models.Model):
-    cod_echipa = models.AutoField(primary_key=True)    
+    cod_echipa = models.AutoField(primary_key=True, db_column='cod_echipa')    
     nume_echipa = models.CharField(max_length=50)
-    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='')
+    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='', db_column='cod_departament')
 
 class Utilizator(AbstractBaseUser, PermissionsMixin):
     cod_utilizator = models.TextField(max_length=50, unique=True, default='')
     nume = models.TextField(max_length=50, blank=True)
     prenume = models.TextField(max_length=50, blank=True)
-    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='')
-    cod_echipa = models.ForeignKey(Echipe, on_delete=models.CASCADE, default='')
+    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='', db_column='cod_departament')
+    cod_echipa = models.ForeignKey(Echipe, on_delete=models.CASCADE, default='', db_column='cod_echipa')
     parola = models.TextField(max_length=50, blank=True)
     adresa_email = models.EmailField(_('adresa email'), unique=True)
     nr_telefon = models.CharField(max_length=15)
@@ -84,7 +86,7 @@ class Proiect(models.Model):
     data_inceput = models.DateField()
     data_sfarsit = models.DateField()
     status = models.CharField(max_length=15)
-    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='')
+    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='', db_column='cod_departament')
 
 
 class Task(models.Model):
@@ -93,8 +95,8 @@ class Task(models.Model):
     descriere = models.CharField(max_length=50)
     data = models.DateField()
     status = models.CharField(max_length=15)
-    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='')
-    cod_echipa = models.ForeignKey(Echipe, on_delete=models.CASCADE, default='')
+    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='', db_column='cod_departament')
+    cod_echipa = models.ForeignKey(Echipe, on_delete=models.CASCADE, default='', db_column='cod_echipa')
 
 
 class Sedinta(models.Model):
@@ -104,7 +106,7 @@ class Sedinta(models.Model):
     data_sedinta = models.DateField()
     ora_inceput = models.TimeField()
     ora_sfarsit = models.TimeField()
-    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='')
+    cod_departament = models.ForeignKey(Departament, on_delete=models.CASCADE, default='', db_column='cod_departament')
 
 
 class Chat(models.Model):
