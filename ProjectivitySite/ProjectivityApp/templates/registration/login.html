@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {% csrf_token %}
+<script>
+    function getCSRFToken() {
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+</script>
   {% load static %}
   <title>PROJECTIVITY</title>
   <link rel="stylesheet" type="text/css" href="home.css">
@@ -129,20 +135,25 @@
       <img src="logo.png" alt="Logo" />
     </div>
     <div class="login-container">
-        <div class="login-box">
+      <div class="login-box">
           <form action="/login/" method="POST" id="myForm">
+              {% csrf_token %}
               <label for="cod_utilizator"><strong>Utilizator:</strong></label>
               <input type="text" id="utilizator" name="cod_utilizator" required>
               <label for="parola"><strong>Parola:</strong></label>
               <input type="password" id="parola" name="parola" required>
               <button type="submit">Log in</button>
-          </form>    
-        </div>
-    </div>
-  
-      <div id="humanitas-button" class="button-box">
-        <a href="contact2.html" style="text-decoration: none; color: black;">HUMANITAS S.A.</a>
+          </form>
       </div>
+  </div>
+  
+  <div id="humanitas-button" class="button-box">
+      <a href="contact2.html" style="text-decoration: none; color: black;">HUMANITAS S.A.</a>
+  </div>
+  
+  {% if mesaj_eroare %}
+  <div class="error-message">{{ mesaj_eroare }}</div>
+  {% endif %}
 
 
   </body>
