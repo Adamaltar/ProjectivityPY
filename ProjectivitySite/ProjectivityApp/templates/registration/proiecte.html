@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <form method="post" action="{% url 'ProiectView' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Adaugă proiect</button>
+  </form>  
     {% load static %}
     <title>Proiecte</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
@@ -600,60 +605,53 @@
             clearButton.addEventListener('click', clearSearch);
             
             function handleSearch() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                const rows = projectTable.querySelectorAll('tbody tr');
-              
-                if (searchTerm === '') {
-                  rows.forEach(row => {
-                    row.style.display = 'table-row';
-                  });
-                  return;
-                }
-              
+              const searchTerm = searchInput.value.toLowerCase().trim();
+              const rows = projectTable.querySelectorAll('tbody tr');
+            
+              if (searchTerm === '') {
                 rows.forEach(row => {
-                  const searchableColumns = row.querySelectorAll('.searchable-column');
-                  let shouldShowRow = false;
-              
-                  for (let i = 0; i < searchableColumns.length; i++) {
-                    const columnText = searchableColumns[i].textContent.toLowerCase();
-                    if (isTextMatch(columnText, searchTerm) || isDateMatch(columnText, searchTerm)) {
-                      shouldShowRow = true;
-                      break;
-                    }
-                  }
-              
-                  row.style.display = shouldShowRow ? 'table-row' : 'none';
+                  row.style.display = 'table-row';
                 });
+                return;
               }
-              
-              
-              function isTextMatch(text, searchTerm) {
-                return text.includes(searchTerm);
-              }
-              
-              function isDateMatch(text, searchTerm) {
-                const datePattern = /\d{2}\/\d{2}\/\d{4}/;
-                return datePattern.test(text) && text.includes(searchTerm);
-              }
-
-                function isMonthAndDayMatch(text, searchTerm) {
-                const monthAndDayPattern = /\d{2}\/\d{2}/;
-                return monthAndDayPattern.test(text) && text.includes(searchTerm);
-              }
-              
-              function isDayMatch(text, searchTerm) {
-                const dayPattern = /\d{2}/;
-                return dayPattern.test(text) && text.includes(searchTerm);
-              }
-              function isDateMatchInputs(inputs, searchTerm) {
-                for (let i = 0; i < inputs.length; i++) {
-                  const input = inputs[i];
-                  if (input.value.includes(searchTerm)) {
-                    return true;
+            
+              rows.forEach(row => {
+                const searchableColumns = row.querySelectorAll('.searchable-column');
+                let shouldShowRow = false;
+            
+                searchableColumns.forEach(column => {
+                  const columnInput = column.querySelector('input[type="text"], textarea');
+                  const columnValue = columnInput.value.toLowerCase();
+                  if (isTextMatch(columnValue, searchTerm) || isDateMatch(columnValue, searchTerm)) {
+                    shouldShowRow = true;
                   }
+                });
+            
+                row.style.display = shouldShowRow ? 'table-row' : 'none';
+              });
+            }
+            
+            function isTextMatch(text, searchTerm) {
+              return text.includes(searchTerm);
+            }
+            
+            function isDateMatch(text, searchTerm) {
+              const datePattern = /\d{2}\/\d{2}\/\d{4}/;
+              return datePattern.test(text) && text.includes(searchTerm);
+            }
+            
+            
+            function isDateMatchInputs(inputs, searchTerm) {
+              for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+                const inputValue = input.value.toLowerCase();
+                if (inputValue.includes(searchTerm)) {
+                  return true;
                 }
-                return false;
-              }                                                    
+              }
+              return false;
+            }
+                                                                        
 
               function clearSearch() {
                 searchInput.value = ''; 
