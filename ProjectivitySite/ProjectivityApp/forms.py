@@ -1,6 +1,7 @@
 from django import forms
+from django.utils import timezone
 # from django.contrib.auth.forms import AuthenticationForm
-from ProjectivityApp.models import Utilizator
+from ProjectivityApp.models import Utilizator, Proiect, Task, Sedinta
 
 
 def verificare_combinatie_utilizator_parola(cod_utilizator, parola):
@@ -25,17 +26,45 @@ class LoginForm(forms.Form):
         if cod_utilizator and parola:
             if not verificare_combinatie_utilizator_parola(cod_utilizator, parola):
                 raise forms.ValidationError('Nume de utilizator sau parolă greșite')
-
-class HomeForm(forms.Form):
-    nume = forms.CharField(
-        label="Nume",
-        max_length=255,
-        widget=forms.TextInput(attrs={'autofocus': True})
-    )
     
-class ProjectForm(forms.Form):
-    nume_proiect = forms.CharField(max_length=100)
-    status_proiect = forms.ChoiceField(choices=[('red', 'Anulat'), ('yellow', 'In lucru'), ('green', 'Terminat')])
-    descriere = forms.CharField(widget=forms.Textarea(attrs={'maxlength': 250}))
-    deadline_data = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    deadline_ora = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+class ProiectForm(forms.ModelForm):
+    class Meta:
+        model = Proiect
+        fields = ['nume_proiect', 'status', 'descriere', 'data_inceput', 'data_sfarsit']
+
+    def save(self, cod_departament):
+        proiect = super().save(commit=False)
+        proiect.cod_departament = cod_departament
+        proiect.data_inceput = timezone.now()
+
+        if proiect.status_proiect == 'green':
+            proiect.data_sfarsit = timezone.now()
+
+        proiect.save()
+        
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['nume_task', 'status', 'descriere', 'data']
+
+    def save(self, cod_departament):
+        task = super().save(commit=False)
+        task.cod_departament = cod_departament
+        task.data_inceput = timezone.now()
+
+        if task.status_task == 'green':
+            task.data_sfarsit = timezone.now()
+
+        task.save()
+        
+class SedintaForm(forms.ModelForm):
+    class Meta:
+        model = Sedinta
+        fields = ['nume_sedinta', 'descriere', 'data_sedinta', 'ora_inceput', 'ora_sfarsit']
+
+    def save(self, cod_departament):
+        sedinta = super().save(commit=False)
+        sedinta.cod_departament = cod_departament
+        sedinta.data_inceput = timezone.now()
+
+        sedinta.save()
