@@ -422,13 +422,17 @@
             
               }
             
-            function saveRow(row) {
+              function saveRow(row) {
                 const disableInputs = row.querySelectorAll('td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) input[type="text"], td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) textarea, td:nth-child(6) input[type="date"], td:nth-child(7) input[type="time"], td:nth-child(8) input[type="time"], td:nth-child(9) button');
-                
+              
                 disableInputs.forEach(input => {
                   input.disabled = true;
                 });
               
+                const timeInputs = row.querySelectorAll('td:nth-child(6) input[type="time"], td:nth-child(7) input[type="time"]');
+                timeInputs.forEach(input => {
+                  input.disabled = true;
+                });
               }
               
               function modifyRow(row) {
@@ -438,9 +442,11 @@
                   input.disabled = !input.disabled;
                 });
               
-              }
-              
-                        
+                const timeInputs = row.querySelectorAll('td:nth-child(6) input[type="time"], td:nth-child(7) input[type="time"]');
+                timeInputs.forEach(input => {
+                  input.disabled = !input.disabled;
+                });
+              }   
             
             function deleteRow(row) {
               const deleteButton = row.querySelector('.delete-button');
