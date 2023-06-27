@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rapoarte</title>
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        #home-button {
+            background-color: #C8FFB4;
+            color: black;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+        }
+
+        #humanitas-button {
+            float: right;
+        }
+
+        #humanitas-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 35px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #raport-button {
+            background-color: #006400;
+        }
+
+        #raport-title {
+            font-size: 28px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        #text-tabel {
+            justify-content: center;
+            text-align: center;
+        }
+
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div id="proiect_button" class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: #006400;">Sedinte</a>
+    </div>
+    <div class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: #006400;">Chat</a>
+    </div>
+    <div class="button-box" id="raport-button">
+        <a href="rapoarte.html" style="text-decoration: none; color: white;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="iconuser.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: #006400;">Profil</a>
+    </div>    
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: #006400;">HUMANITAS S.A.</a>
+    </div>
+</head>
+<body>
+        <div id="welcome-section">
+            <h1 id="app-title">PROJECTIVITY</h1>
+            <h2 id="raport-title">Raport proiecte</h2>
+        </div>
+    <table>
+        <tr id="text-tabel">
+            <th>Cod proiect</th>
+            <th>Cod departament</th>
+            <th>Nume proiect</th>
+            <th>Status</th>
+            <th>Data început</th>
+            <th>Data sfârșit</th>
+            <th>Descriere</th>
+        </tr>
+        {% for proiect in proiecte %}
+            <tr id="text-tabel">
+                <td>{{ proiect.cod_proiect }}</td>
+                <td>{{ proiect.cod_departament }}</td>
+                <td>{{ proiect.nume_proiect }}</td>
+                <td>{{ proiect.status }}</td>
+                <td>{{ proiect.data_inceput }}</td>
+                <td>{{ proiect.data_sfarsit }}</td>
+                <td>{{ proiect.descriere }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h1 id="raport-title">Raport taskuri</h1>
+    <table>
+        <tr id="text-tabel">
+            <th>Cod task</th>
+            <th>Cod departament</th>
+            <th>Nume task</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Descriere</th>
+        </tr>
+        {% for task in taskuri %}
+            <tr id="text-tabel">
+                <td>{{ task.cod_task }}</td>
+                <td>{{ task.cod_departament }}</td>
+                <td>{{ task.nume_task }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.data }}</td>
+                <td>{{ task.descriere }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h1 id="raport-title">Raport sedinte</h1>
+    <table>
+        <tr id="text-tabel">
+            <th>Cod sedinta</th>
+            <th>Cod departament</th>
+            <th>Nume sedinta</th>
+            <th>Status</th>
+            <th>Data sedinta</th>
+            <th>Ora inceput</th>
+            <th>Ora sfarsit</th>
+            <th>Descriere</th>
+        </tr>
+        {% for sedinta in sedinte %}
+            <tr id="text-tabel">
+                <td>{{ sedinta.cod_sedinta }}</td>
+                <td>{{ sedinta.cod_departament }}</td>
+                <td>{{ sedinta.nume_sedinta }}</td>
+                <td>{{ sedinta.status }}</td>
+                <td>{{ sedinta.data }}</td>
+                <td>{{ sedinta.ora_inceput }}</td>
+                <td>{{ sedinta.ora_sfarsit }}</td>
+                <td>{{ sedinta.descriere }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        document.getElementById("home-button").classList.add("inactive");
+    
+        document.getElementById("home-button").addEventListener("click", function() {
+            window.location.href = "home.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    
+        document.getElementById("humanitas-button").addEventListener("click", function() {
+            window.location.href = "contact.html";
+        });
+    
+        document.getElementById("info-utile-button").addEventListener("click", function() {
+            window.location.href = "info_utile.html";
+        });
+    
+        document.getElementById("proiect-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("task-button").addEventListener("click", function() {
+            window.location.href = "task.html";
+        });
+    
+        document.getElementById("sedinte-button").addEventListener("click", function() {
+            window.location.href = "sedinte.html";
+        });
+    
+        document.getElementById("chat-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("rapoarte-button").addEventListener("click", function() {
+            window.location.href = "proiecte.html";
+        });
+    
+        document.getElementById("profil-button").addEventListener("click", function() {
+            window.location.href = "detalii_utilizator.html";
+        });
+    </script>
+</body>
+</html>
