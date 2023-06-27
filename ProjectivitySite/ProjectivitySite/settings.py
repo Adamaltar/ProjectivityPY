@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+# import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,7 +62,7 @@ LOGIN_URL = '/login/'
 HOME_URL = '/home/'
 PROIECTE_URL = '/proiecte/'
 CONTACT_URL = '/contact/'
-CONTACT2_URL = '/CONTACT2/'
+CONTACT2_URL = '/contact2/'
 DETALII_UTILIZATOR_URL = '/detalii_utilizator/'
 INFO_UTILE_URL = '/info_utile/'
 TASKURI_URL = '/taskuri/'
