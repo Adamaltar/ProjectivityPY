@@ -17,40 +17,46 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ProjectivityApp import views
+from . import settings
+from django.conf.urls.static import static
+from ProjectivityApp.views import get_notifications
 
 # app_name = 'ProjectivityApp'
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('api/users/', views.get_users, name='get_users'),
     path('', views.LoginView, name='login'),
     path('login/', views.LoginView, name='login'),
     path('login.html', views.LoginView, name='login'),
     path('contact2.html', views.Contact2View, name='contact2'),
+    path('contact2/', views.Contact2View, name='contact2'),
     path('home.html', views.HomeView, name='home'),
     path('home/', views.HomeView, name='home'),
     path('logout/', views.LogoutView, name='logout'),
     path('contact/', views.ContactView, name='contact'),
-    path('contact.html', views.ContactView, name='contact'),
+    # path('contact.html', views.ContactView, name='contact'),
     path('proiecte/', views.ProiectView, name='proiecte'),
-    path('proiecte.html', views.ProiectView, name='proiecte'),
+    path('taskuri/', views.TaskView, name='taskuri'),
+    path('sedinte/', views.SedintaView, name='sedinte'),
+    # path('proiecte.html', views.ProiectView, name='proiecte'),
     # path('taskuri.html', views.TaskuriView, name='taskuri'),
     # path('sedinte.html', views.SedinteView, name='sedinte'),
+    path('get_notifications/', get_notifications, name='get_notifications'),
     # path('chat.html', views.ChatView, name='chat'),
+    # path('chat/', views.ChatView, name='chat'),
+    # path('chat/<int:chat_id>/messages', views.get_chat_messages, name='get_chat_messages'),
+    # path('chat/<int:chat_id>/add_member/<int:user_id>', views.add_chat_member, name='add_chat_member'),
+    path('chat/messages', views.save_message_to_database),
+    path('chat/save', views.save_chat_to_database),
+    # path('chat/<str:chatTitle>/messages', views.get_chat_messages),
+    path('chat/<int:codChat>', views.delete_chat_from_database),
+    path('chat/<str:numeChat>', views.update_chat_in_database),
+    path('chat/<int:codChat>/invite', views.invite_members_to_chat),
     # path('rapoarte.html', views.RapoarteView, name='rapoarte'),
     path('detalii_utilizator.html', views.Detalii_utilizatorView, name='detalii_utilizator'),
-    path('detalii_utilizator/', views.Detalii_utilizatorView, name='detalii_utilizator'),
+    # path('detalii_utilizator/', views.Detalii_utilizatorView, name='detalii_utilizator'),
     path('info_utile.html', views.Info_utileView, name='info_utile'),
-    path('info_utile/', views.Info_utileView, name='info_utile'),
-    
-    # path('', views.ProiectView, name='proiecte'),
-    # path('login.html', views.LoginView, name='login'),
-    # path('home.html', views.HomeView, name='home'),
-    # path('proiecte.html', views.ProiectView, name='proiecte'),
-    # path('registration/contact.html', name='contact'),
-    # path('registration/contact2.html', name='contact2'),
-    # path('registration/info_utile.html', name='info_utile'),
-    # path('login/', views.LoginView, name='login'),
-    # path('home/', views.HomeView, name='home'),
-    # path('logout_view/', views.LogoutView, name='logout_view'),  
-]
+    # path('info_utile/', views.Info_utileView, name='info_utile'),
+]    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
