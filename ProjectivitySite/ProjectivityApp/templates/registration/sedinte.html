@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <form method="post" action="{% url 'SedintaView' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Adaugă sedinta</button>
+  </form>  
+    {% load static %}
+    <title>Sedinta</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sedinta.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'background.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'iconuser.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'add.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'greendot.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'reddot.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'yellowdot.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'trash.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'save.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'modify.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'lupa.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'lock.png' %}">
+    <link rel="icon" type="image/png" href="ProjectivityApp/static/">
+    <style>
+        body {
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+    </style>
+    <style>
+        .button-box {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        #home-button {
+            background-color: #C8FFB4;
+            color: black;
+        }
+
+        #home-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #profil-button {
+            float: left;
+        }
+
+        #humanitas-button {
+            float: right;
+        }
+
+        #humanitas-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        #sedinta_button {
+            background-color: #006400;
+        }
+
+        .button-box:hover {
+            background-color: #32CD32;
+        }
+
+        #app-title {
+            font-size: 35px;
+            font-weight: bold;
+            color: #006400;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #sedinta-title {
+            font-size: 28px;
+            color: black;
+            margin-top: 70px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #search-container {
+            margin-bottom: 10px;
+        }
+          
+        #search-input {
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 70px;
+            margin-top: 40px;
+            margin-left: 800px;
+        }
+
+        #search-button {
+            height: 40px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            font-size: 16px;
+            background-color: #C8FFB4;
+            color: black;
+            border: 2px solid black;
+            border-color: #006400;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 70px;
+            margin-top: 40px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            margin-left: 10px;
+        }
+
+        #search-button:hover {
+            background-color: #004000;
+        }
+
+        #clear-button {
+            cursor: pointer;
+            margin-left: 5px;
+            color: #006400;
+            font-weight: bold;
+            font-size: 25px;
+        }          
+
+ 
+        #sedinta-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #98FB98;
+            margin-bottom: 20px;
+            border: 1px solid black;
+        }
+
+        #sedinta-table th:first-child,
+        #sedinta-table td:first-child {
+            padding-left: 10px;
+        }
+        
+        #sedinta-table td:last-child {
+            padding-right: 10px;
+            position: relative; 
+            background-color: #98FB98;
+        }
+        
+        #sedinta-table td:last-child::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #98FB98; 
+            z-index: -1;
+        }
+
+        #sedinta-table td:last-child input[type="date"],
+        #sedinta-table td:last-child input[type="time"] {
+            width: 100%;
+            height: 25px;
+            box-sizing: border-box;
+            border-color: black;
+            background-color: transparent; 
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+            padding: 0 10px; 
+        }
+        
+        #sedinta-table td:last-child input[type="date"] {
+            margin-bottom: 5px; 
+        }        
+
+        #sedinta-table th {
+            background-color: #006400;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #sedinta-table td {
+            background-color: #98FB98;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        #sedinta-table input[type="text"] {
+            width: 100%;
+            border-color: black;
+            background-color: #98FB98;
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-size: 20px;
+        }
+
+        #sedinta-table textarea,
+        #sedinta-table input[type="date"],
+        #sedinta-table input[type="time"] {
+            width: 100%;
+            border-color: black;
+            background-color: #98FB98;
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+        }
+
+        #sedinta-table input[type="text"] {
+            width: 100%;
+            resize: none;
+            height: 30px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        #sedinta-table textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        #sedinta-table input[type="date"],
+        #sedinta-table input[type="time"] {
+            height: 25px;
+            box-sizing: border-box;
+        }
+
+        #sedinta-table tfoot .add-sedinta-button {
+            background-color: #006400;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 23%;
+        }
+
+        #sedinta-table tfoot .add-sedinta-button:hover {
+            filter: brightness(120%);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .delete-button{
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .delete-button img {
+            width: 30px;
+            height: 35px;
+        }
+
+        .modify-button {
+            padding: 0;
+            width: 35px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .modify-button img {
+            width: 30px;
+            height: 32px;
+        }
+
+        .save-button::before {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .save-button {
+            padding: 0;
+            width: 40px;
+            height: 42px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .save-button img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .save-button.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .add-sedinta-button {
+            cursor: pointer;
+        }
+
+    </style>
+
+    <div id="home-button" class="button-box">Home</div>
+    <div class="button-box">
+        <a href="taskuri.html" style="text-decoration: none; color: #006400;">Taskuri</a>
+    </div>
+    <div class="button-box">
+        <a href="proiecte.html" style="text-decoration: none; color: #006400;">Proiecte</a>
+    </div>
+    <div id="sedinta_button" class="button-box">
+        <a href="sedinte.html" style="text-decoration: none; color: white;">Sedinte</a>
+    </div>
+    <div class="button-box">
+        <a href="chat.html" style="text-decoration: none; color: #006400;">Chat</a>
+    </div>
+    <div class="button-box">
+        <a href="rapoarte.html" style="text-decoration: none; color: #006400;">Rapoarte</a>
+    </div>
+    <div id="profil-button" class="button-box">
+        <img src="iconuser.png" alt="User Icon" style="width: 2em; height: 2em; vertical-align: middle; margin-right: 5px;">
+        <a href="detalii_utilizator.html" style="text-decoration: none; color: #006400;">Profil</a>
+    </div>    
+    <div id="humanitas-button" class="button-box">
+        <a href="contact.html" style="text-decoration: none; color: #006400;">HUMANITAS S.A.</a>
+    </div>
+
+    <body>
+        <div id="welcome-section">
+            <h1 id="app-title">PROJECTIVITY</h1>
+            <h2 id="sedinta-title">Sedinte</h2>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Cauta sedinta dorita">
+            <button id="search-button">Cautare</button>
+            <span id="clear-button">x</span>                        
+        </div>
+        <div class="table-container">
+            <form method="POST" action="{% url 'sedinta' %}">
+                <table id="sedinta-table">
+                    <thead>
+                        <tr>
+                            <th>Denumire Sedinta</th>
+                            <th>Modifica</th>
+                            <th>Salveaza</th>
+                            <th>Sterge</th>
+                            <th>Descriere</th>
+                            <th>Data sedinta  -  Ora inceput  -  Ora sfarsit</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-row">
+                            <td colspan="6"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <div class="add-sedinta-button">
+                                    <img src="add.jpg" alt="Add Icon" style="width: 16px; height: 16px; margin-right: 5px;">
+                                    Adauga sedinta
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+
+          
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const sedintaTable = document.getElementById('sedinta-table');
+            const addsedintaButton = document.querySelector('.add-sedinta-button');
+            let isEditMode = false;
+            
+            function createNewRow() {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                <td class="searchable-column"><input type="text" maxlength="50"></td>
+                <td class="center modify-button"><img src="modify.png" alt="Modify Icon"></td>
+                <td class="center save-button"><img src="save.png" alt="Save Icon"></td>
+                <td class="center delete-button"><img src="trash.png" alt="Delete Icon"></td>
+                <td class="searchable-column"><textarea maxlength="250" rows="1"></textarea></td>
+                <td class="searchable-column">
+                  <input type="date">
+                  <input type="time">
+                  <input type="time">
+                </td>
+              `;
+              
+                sedintaTable.querySelector('tbody').appendChild(newRow);
+            
+              }
+            
+            function saveRow(row) {
+                const disableInputs = row.querySelectorAll('td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) input[type="text"], td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) textarea, td:nth-child(6) input[type="date"], td:nth-child(7) input[type="time"], td:nth-child(8) input[type="time"], td:nth-child(9) button');
+                
+                disableInputs.forEach(input => {
+                  input.disabled = true;
+                });
+              
+              }
+              
+              function modifyRow(row) {
+                const disableInputs = row.querySelectorAll('td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) input[type="text"], td:not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)) textarea, td:nth-child(6) input[type="date"], td:nth-child(7) input[type="time"], td:nth-child(8) input[type="time"], td:nth-child(9) button');
+              
+                disableInputs.forEach(input => {
+                  input.disabled = !input.disabled;
+                });
+              
+              }
+              
+                        
+            
+            function deleteRow(row) {
+              const deleteButton = row.querySelector('.delete-button');
+            
+              if (deleteButton.innerHTML === '<img src="trash.png" alt="Delete Icon">') {
+                deleteButton.innerHTML = `
+                  <span class="confirm-prompt">Sunteți sigur că doriți să ștergeți sedinta?</span>
+                  <span class="confirm-buttons">
+                    <button class="confirm-yes">DA</button>
+                    <button class="confirm-no">NU</button>
+                  </span>
+                `;
+            
+                const confirmYesButton = deleteButton.querySelector('.confirm-yes');
+                const confirmNoButton = deleteButton.querySelector('.confirm-no');
+            
+                confirmYesButton.addEventListener('click', () => {
+                  row.remove();
+                });
+            
+                confirmNoButton.addEventListener('click', () => {
+                  deleteButton.innerHTML = '<img src="trash.png" alt="Delete Icon">';
+                });
+              }
+            }
+            
+            function handleSaveButtonClick(event) {
+              const target = event.target;
+              const row = target.closest('tr');
+              saveRow(row);
+            }
+            
+            function handleRowButtonClicks(event) {
+              const target = event.target;
+              const row = target.closest('tr');
+            
+              if (target.closest('.modify-button img')) {
+                modifyRow(row);
+              } else if (target.closest('.delete-button img')) {
+                deleteRow(row);
+              } 
+            }
+            
+            addsedintaButton.addEventListener('click', () => {
+              createNewRow();
+            });
+            
+            sedintaTable.addEventListener('click', (event) => {
+              handleRowButtonClicks(event);
+              if (event.target.classList.contains('save-button')) {
+                handleSaveButtonClick(event);
+              }
+            });
+
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const clearButton = document.getElementById('clear-button');
+
+            searchButton.addEventListener('click', handleSearch);
+            clearButton.addEventListener('click', clearSearch);
+            
+            function handleSearch() {
+              const searchTerm = searchInput.value.toLowerCase().trim();
+              const rows = sedintaTable.querySelectorAll('tbody tr');
+            
+              if (searchTerm === '') {
+                rows.forEach(row => {
+                  row.style.display = 'table-row';
+                });
+                return;
+              }
+            
+              rows.forEach(row => {
+                const searchableColumns = row.querySelectorAll('.searchable-column');
+                let shouldShowRow = false;
+            
+                searchableColumns.forEach(column => {
+                  const columnInput = column.querySelector('input[type="text"], textarea');
+                  const columnValue = columnInput.value.toLowerCase();
+                  if (isTextMatch(columnValue, searchTerm) || isDateMatch(columnValue, searchTerm)) {
+                    shouldShowRow = true;
+                  }
+                });
+            
+                row.style.display = shouldShowRow ? 'table-row' : 'none';
+              });
+            }
+            
+            function isTextMatch(text, searchTerm) {
+              return text.includes(searchTerm);
+            }
+            
+            function isDateMatch(text, searchTerm) {
+              const datePattern = /\d{2}\/\d{2}\/\d{4}/;
+              return datePattern.test(text) && text.includes(searchTerm);
+            }
+            
+            
+            function isDateMatchInputs(inputs, searchTerm) {
+              for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+                const inputValue = input.value.toLowerCase();
+                if (inputValue.includes(searchTerm)) {
+                  return true;
+                }
+              }
+              return false;
+            }
+                                                                        
+
+              function clearSearch() {
+                searchInput.value = ''; 
+              
+                const rows = sedintaTable.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                  row.style.display = 'table-row';
+                });
+              }
+        });
+          </script>
+
+<script>
+    document.getElementById("home-button").classList.add("inactive");
+
+    document.getElementById("home-button").addEventListener("click", function() {
+        window.location.href = "home.html";
+    });
+
+    document.getElementById("profil-button").addEventListener("click", function() {
+        window.location.href = "detalii_utilizator.html";
+    });
+
+    document.getElementById("humanitas-button").addEventListener("click", function() {
+        window.location.href = "contact.html";
+    });
+
+    document.getElementById("info-utile-button").addEventListener("click", function() {
+        window.location.href = "info_utile.html";
+    });
+
+    document.getElementById("proiect-button").addEventListener("click", function() {
+        window.location.href = "proiecte.html";
+    });
+
+    document.getElementById("task-button").addEventListener("click", function() {
+        window.location.href = "task.html";
+    });
+
+    document.getElementById("sedinte-button").addEventListener("click", function() {
+        window.location.href = "sedinte.html";
+    });
+
+    document.getElementById("chat-button").addEventListener("click", function() {
+        window.location.href = "chat.html";
+    });
+
+    document.getElementById("rapoarte-button").addEventListener("click", function() {
+        window.location.href = "rapoarte.html";
+    });
+
+    document.getElementById("profil-button").addEventListener("click", function() {
+        window.location.href = "detalii_utilizator.html";
+    });
+</script>
+</body>
+</html>
