@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% csrf_token %}
+<script>
+    function getCSRFToken() {
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+</script>
     {% load static %}
     <title>Chat</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
@@ -29,10 +35,10 @@
             margin: 10px;
             font-family: 'Berlin Sans FB Demi', sans-serif;
             font-size: 18px;
-            color: white;
+            color: black;
         }
 
-        .add-button-box {
+        .add-button {
             border: 2px solid #006400;
             background-color: #C8FFB4;
             padding: 10px;
@@ -46,7 +52,7 @@
             margin-left: 150px;
         }
 
-        .add-button-box:hover {
+        .add-button:hover {
             background-color: #32CD32;
             cursor: pointer;
         }
@@ -132,6 +138,7 @@
         .chat-list {
             margin-top: 20px;
             margin-bottom: 40px;
+            overflow-y: scroll;
         }
 
         .chat-title {
@@ -140,20 +147,12 @@
             color: #006400;
         }
 
-        .chat-item {
-            position: relative;
-        }
-
         .modify-button {
             margin-left: 40px;
             border: none;
             background-color: transparent;
             cursor: pointer;
             margin-bottom: 40px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 10px;
         }
 
         .modify-button img {
@@ -170,7 +169,7 @@
             margin: 10px;
             font-family: 'Berlin Sans FB Demi', sans-serif;
             font-size: 18px;
-            color: white;
+            color: black;
             margin-left: 120px;
         }
 
@@ -199,10 +198,6 @@
         }
 
         .delete-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 10px;
             margin-left: 40px;
             border: none;
             background-color: transparent;
@@ -253,8 +248,80 @@
             margin-bottom: 10px;
         }
 
-        .selected {
-            background-color: #ccffcc;
+        .invite-button {
+            border: 2px solid #006400;
+            background-color: #C8FFB4;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-family: 'Berlin Sans FB Demi', sans-serif;
+            margin-left: 700px;
+            margin-bottom: 20px;
+            font-size: 12.5px;
+            color: back;
+        }
+
+        .invite-button:hover {
+            background-color: #32CD32;
+            cursor: pointer;
+        }
+
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+          
+        .user-dropdown .dropdown-item {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+          
+        .user-dropdown:hover .dropdown-item {
+            display: block;
+        }
+          
+        .user-dropdown .dropdown-item:hover {
+            background-color: #e9e9e9;
+        }
+          
+        .user-dropdown .dropdown-item:first-child {
+            margin-top: 0;
+        }
+          
+        .user-dropdown .dropdown-item:last-child {
+            margin-bottom: 0;
+        }
+          
+        .user-dropdown .dropdown-item.selected {
+            background-color: #c8ffb4;
+        }
+          
+        .user-dropdown .dropdown-item a {
+            display: block;
+            text-decoration: none;
+            color: #000;
+        }
+          
+        .user-dropdown .dropdown-item a:hover {
+            text-decoration: underline;
+        }
+          
+        .dropdown-item {
+            cursor: pointer;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown-item.selected {
+            background-color: #ccc;
         }
 
     </style>
@@ -292,7 +359,7 @@
             <div class="col">
                 <div class="title">Chat</div>
                 <div class="chat-list">
-                    <div class="chat-item">
+                    <div class="chat-item" id="chat-item-{{ cod_chat }}">
                         <span class="chat-title">Chat 1</span>
                         <button class="modify-button"><img src="modify.png" alt="Modify"></button>
                         <button class="delete-button"><img src="trash.png" alt="Delete"></button>
@@ -304,153 +371,290 @@
                     </div>
                 </div>
                 <button id="add-chat-button" class="button-box">
-                <a style="text-decoration: none; color: black;">Adauga chat nou</a>
+                <a>Adauga chat nou</a>
+                </button>
                 </div>
                 <div class="col">
                     <span class="title">Chat Window</span> 
-                    <button class="add-button-box"> <a id="add-membru-button" style="color: black;">Adaugă membri noi</a></button>
+                    <button class="add-button" id="add-member-button">Adaugă membri noi</button>
+                    <div class="user-dropdown">
+                        {% for user in users %}
+                        <div class="dropdown-item">
+                            <a href="#">{{ user.cod_utilizator }}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form id="invite-form" data-chat-id="{{ cod_chat }}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="invite-user" name="user" value="">
+                        <button class="invite-button" type="submit">Invita</button>
+                    </form>                                 
                     <div class="chat-window">
-                    <div class="message">Mesaj 1</div>
-                    <div class="message">Mesaj 2</div>
-                    <div class="message">Mesaj 3</div>
-                </div>
-                <div class="message-box">
-                    <textarea class="message-textarea" placeholder="Scrie un mesaj"></textarea>
-                    <button class="send-button"><img src="send.png" alt="Send"></button>
+                        <div class="message">Mesaj 1</div>
+                        <div class="message">Mesaj 2</div>
+                        <div class="message">Mesaj 3</div>
+                    </div>
+                    <div class="message-box">
+                        <textarea class="message-textarea" placeholder="Scrie un mesaj"></textarea>
+                        <button class="send-button"><img src="send.png" alt="Send"></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    
+        <script>        
+            const { Pool } = require('pg');
+        
+            const pool = new Pool({
+                user: 'postgres',
+                host: 'localhost',
+                database: 'djangoapp',
+                password: 'admin',
+                port: 5432,
+            });
+        
+            var current_user_id = null;
 
-    <script>
-        var addChatButton = document.getElementById('add-chat-button');
-        addChatButton.addEventListener('click', function() {
-            var chatTitle = prompt('Introduceti titlul chat-ului:');
-            if (chatTitle) {
-                // Create a new chat item
-                var chatItem = document.createElement('div');
-                chatItem.classList.add('chat-item');
-                
-                // Create the chat title
-                var chatTitleElement = document.createElement('span');
-                chatTitleElement.classList.add('chat-title');
-                chatTitleElement.innerText = chatTitle;
-                chatItem.appendChild(chatTitleElement);
-                
-                // Create the modify button
-                var modifyButton = document.createElement('button');
-                modifyButton.classList.add('modify-button');
-                var modifyIcon = document.createElement('img');
-                modifyIcon.src = 'modify.png';
-                modifyIcon.alt = 'Modify';
-                modifyButton.appendChild(modifyIcon);
-                chatItem.appendChild(modifyButton);
-                
-                // Create the delete button
-                var deleteButton = document.createElement('button');
-                deleteButton.classList.add('delete-button');
-                var deleteIcon = document.createElement('img');
-                deleteIcon.src = 'trash.png';
-                deleteIcon.alt = 'Delete';
-                deleteButton.appendChild(deleteIcon);
-                chatItem.appendChild(deleteButton);
-                
-                // Add the new chat item to the chat list
-                var chatList = document.querySelector('.chat-list');
-                chatList.appendChild(chatItem);
+            if (userAuthenticated) {
+                current_user_id = getUserId(); 
             }
-        });
-        
-        // Add event listeners for modify buttons
-        var modifyButtons = document.querySelectorAll('.modify-button');
-        modifyButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var chatTitleElement = button.parentNode.querySelector('.chat-title');
-                if (chatTitleElement.contentEditable === 'true') {
-                    chatTitleElement.contentEditable = 'false';
-                    chatTitleElement.style.backgroundColor = 'initial';
-                } else {
-                    chatTitleElement.contentEditable = 'true';
-                    chatTitleElement.style.backgroundColor = '#ccffcc';
+
+            function addModifyAndDeleteButtons() {
+                function setButtonBehavior(button) {
+                    button.addEventListener('click', function() {
+                        var chatTitleElement = button.parentNode.querySelector('.chat-title');
+                        if (chatTitleElement.contentEditable === 'true') {
+                            chatTitleElement.contentEditable = 'false';
+                            chatTitleElement.style.backgroundColor = 'initial';
+                        } else {
+                            chatTitleElement.contentEditable = 'true';
+                            chatTitleElement.style.backgroundColor = '#ccffcc';
+                        }
+                    });
                 }
-            });
-        });
-        
-        // Add event listeners for delete buttons
-        var deleteButtons = document.querySelectorAll('.delete-button');
-        deleteButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var confirmDelete = confirm('Sunteti sigur ca doriti sa stergeti conversatia?');
-                if (confirmDelete) {
-                    var chatItem = button.parentNode;
-                    var chatList = chatItem.parentNode;
-                    chatList.removeChild(chatItem);
-                    // TODO: Remove chat from database
-                }
-            });
-        });
-        
-        // Add event listener for chat titles
-        var chatTitles = document.querySelectorAll('.chat-title');
-        chatTitles.forEach(function(title) {
-            title.addEventListener('click', function() {
-                // Clear the message box
-                var messageBox = document.querySelector('.message-box');
-                messageBox.innerHTML = '';
-                
-                // Highlight the selected chat title
-                chatTitles.forEach(function(chatTitle) {
-                    chatTitle.classList.remove('selected');
+            
+                var modifyButtons = document.querySelectorAll('.modify-button');
+                modifyButtons.forEach(function(button) {
+                    setButtonBehavior(button);
                 });
-                title.classList.add('selected');
-                
-                // TODO: Load and display messages for the selected chat from the database
-            });
-        });
+            
+                var deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var confirmDelete = confirm('Sunteți sigur că doriți să ștergeți conversația?');
+                        if (confirmDelete) {
+                            var chatItem = button.closest('.chat-item');
+                            chatItem.parentNode.removeChild(chatItem);
+                            var chatTitle = button.parentNode.querySelector('.chat-title').innerText;
+                            deleteChatFromDatabase(chatTitle);
+                        }
+                    });
+                });
+            }            
         
-        // Add event listener for "Adauga membru" button
-        var addMemberButton = document.querySelector('.add-member-button');
-        addMemberButton.addEventListener('click', function() {
-            var inputMemberCode = prompt('Introduceti codul utilizatorului:');
-            if (inputMemberCode) {
-                // TODO: Add member to the chat in the database
-            }
-        });
-        
-        // Add event listener for send button
-        var sendButton = document.querySelector('.send-button');
-        sendButton.addEventListener('click', function() {
-            var messageText = document.querySelector('.message-input').value;
-            if (messageText) {
-                // Create a new message item
-                var messageItem = document.createElement('div');
-                messageItem.classList.add('message-item');
-                
-                // Determine the message alignment (left for other users, right for the current user)
-                var currentUser = 'current-user'; // Replace with the current user ID
-                if (messageItem.classList.contains(currentUser)) {
-                    messageItem.classList.add('message-right');
+            function showChatMessages(chatTitleText) {
+                var chatWindow = document.querySelector('.chat-window');
+                chatWindow.innerHTML = '';
+            
+                if (current_user_id !== null && chat.cod_utilizator.includes(current_user_id)) {
+                    fetch('/messages/' + chatTitleText)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.includes(current_user_id)) {
+                            fetch('/messages/' + chatTitleText)
+                        .then(response => response.json())
+                        .then(data => {
+                            data.forEach(message => {
+                                var messageElement = document.createElement('div');
+                                messageElement.textContent = message.mesaj;
+                                messageElement.classList.add('message');
+                                if (message.cod_utilizator === current_user_id) {
+                                    messageElement.classList.add('right');
+                                } else {
+                                    messageElement.classList.add('left');
+                                }
+                                chatWindow.appendChild(messageElement);
+                            });
+                        });
                 } else {
-                    messageItem.classList.add('message-left');
+                    console.log('Utilizatorul curent nu este membru al chat-ului sau nu este autentificat.');
                 }
-                
-                // Create the message content
-                var messageContent = document.createElement('span');
-                messageContent.classList.add('message-content');
-                messageContent.innerText = messageText;
-                messageItem.appendChild(messageContent);
-                
-                // Add the new message item to the message box
-                var messageBox = document.querySelector('.message-box');
-                messageBox.appendChild(messageItem);
-                
-                // Clear the message input
-                document.querySelector('.message-input').value = '';
-                
-                // TODO: Save the message to the database
             }
-        });
-    </script>
+        }
+            }           
+        
+            var addChatButton = document.getElementById('add-chat-button');
+            addChatButton.addEventListener('click', function() {
+                var chatTitle = prompt('Introduceți titlul chat-ului:');
+                if (chatTitle) {
+                    var chatItem = document.createElement('div');
+                    chatItem.classList.add('chat-item');
+        
+                    var chatTitleContainer = document.createElement('div');
+                    chatTitleContainer.classList.add('chat-title-container');
+        
+                    var chatTitleElement = document.createElement('span');
+                    chatTitleElement.classList.add('chat-title');
+                    chatTitleElement.innerText = chatTitle;
+                    chatTitleContainer.appendChild(chatTitleElement);
+        
+                    var modifyButton = document.createElement('button');
+                    modifyButton.classList.add('modify-button');
+                    var modifyIcon = document.createElement('img');
+                    modifyIcon.src = 'modify.png';
+                    modifyIcon.alt = 'Modify';
+                    modifyButton.appendChild(modifyIcon);
+                    chatTitleContainer.appendChild(modifyButton);
+        
+                    var deleteButton = document.createElement('button');
+                    deleteButton.classList.add('delete-button');
+                    var deleteIcon = document.createElement('img');
+                    deleteIcon.src = 'trash.png';
+                    deleteIcon.alt = 'Delete';
+                    deleteButton.appendChild(deleteIcon);
+                    chatTitleContainer.appendChild(deleteButton);
+            
+                    chatItem.appendChild(chatTitleContainer);
+                    document.querySelector('.chat-list').appendChild(chatItem);
+            
+                    addModifyAndDeleteButtons();
+
+                    saveChatToDatabase(chatTitle);
+                }
+            });
+            function saveChatToDatabase(chatTitle) {
+                pool.query('INSERT INTO Chat (nume_chat, cod_utilizator) VALUES ($1, $2)', [chatTitle], (error, results) => {
+                    if (error) {
+                        console.error('Eroare la salvarea chat-ului:', error);
+                    } else {
+                        console.log('Chat salvat în baza de date');
+                    }
+                });
+            }
+            
+            function deleteChatFromDatabase(chatTitle) {
+                pool.query('DELETE FROM Chat WHERE nume_chat = $1 AND cod_utilizator = $2', [chatTitle], (error, results) => {
+                    if (error) {
+                        console.error('Eroare la ștergerea chat-ului:', error);
+                    } else {
+                        console.log('Chat șters din baza de date');
+                    }
+                });
+            }
+            
+            var dropdownItems = document.querySelectorAll('.dropdown-item');
+            var addMemberButton = document.getElementById('add-member-button');
+            var userDropdown = document.querySelector('.user-dropdown');
+            var inviteForm = document.getElementById('invite-form');
+            var inviteUserInput = document.getElementById('invite-user');
+
+            userDropdown.style.display = 'none';
+
+            addMemberButton.addEventListener('click', function() {
+                if (userDropdown.style.display === 'none') {
+                  userDropdown.style.display = 'block';
+                } else {
+                  userDropdown.style.display = 'none';
+                }
+            });
+        
+            dropdownItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                  var selectedUser = item.querySelector('a').innerText;
+                  inviteUserInput.value = selectedUser;
+                  addMemberToChat(selectedUser);
+                });
+            });
+        
+            function addMemberToChat(selectedUser) {
+                fetch('/get_users')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Utilizatori:', data);
+                        userDropdown.innerHTML = '';
+                        data.forEach(function (user) {
+                            var dropdownItem = document.createElement('div');
+                            dropdownItem.classList.add('dropdown-item');
+                            var userLink = document.createElement('a');
+                            userLink.href = '#';
+                            userLink.innerText = user.cod_utilizator;
+                            dropdownItem.appendChild(userLink);
+                            userDropdown.appendChild(dropdownItem);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Eroare la obținerea utilizatorilor:', error);
+                    });
+            
+                fetch('/chat/' + chatTitleText + '/add-member', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user: selectedUser
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Utilizatorul', selectedUser, 'a fost adăugat în chat.');
+                        } else {
+                            console.log('Eroare la adăugarea utilizatorului', selectedUser, 'în chat.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Eroare la adăugarea utilizatorului în chat:', error);
+                    });
+            }
+
+            function init() {
+                pool.query('SELECT * FROM Chat WHERE cod_utilizator = $1', (error, results) => {
+                    if (error) {
+                        console.error('Eroare la obținerea chat-urilor:', error);
+                    } else {
+                        results.rows.forEach(chat => {
+                            if (chat.cod_utilizator.includes(current_user_id)) {
+                                var chatItem = document.createElement('div');
+                                chatItem.classList.add('chat-item');
+                            }
+            
+                            var chatTitleContainer = document.createElement('div');
+                            chatTitleContainer.classList.add('chat-title-container');
+            
+                            var chatTitleElement = document.createElement('span');
+                            chatTitleElement.classList.add('chat-title');
+                            chatTitleElement.innerText = chat.nume_chat;
+                            chatTitleContainer.appendChild(chatTitleElement);
+            
+                            var modifyButton = document.createElement('button');
+                            modifyButton.classList.add('modify-button');
+                            var modifyIcon = document.createElement('img');
+                            modifyIcon.src = 'modify.png';
+                            modifyIcon.alt = 'Modify';
+                            modifyButton.appendChild(modifyIcon);
+                            chatTitleContainer.appendChild(modifyButton);
+            
+                            var deleteButton = document.createElement('button');
+                            deleteButton.classList.add('delete-button');
+                            var deleteIcon = document.createElement('img');
+                            deleteIcon.src = 'trash.png';
+                            deleteIcon.alt = 'Delete';
+                            deleteButton.appendChild(deleteIcon);
+                            chatTitleContainer.appendChild(deleteButton);
+            
+                            chatItem.appendChild(chatTitleContainer);
+                            document.querySelector('.chat-list').appendChild(chatItem);
+                        });
+            
+                        addModifyAndDeleteButtons();
+                    }
+                });
+            }
+            
+            init();
+            
+        </script>
     
 
 <script>
